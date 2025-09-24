@@ -1,0 +1,39 @@
+{
+  "name": "electron",
+  "version": "1.0.0",
+  "description": "Una app de web",
+  "main": "main.js",
+  "scripts": {
+    "dist-mac": "CSC_NAME='Apple Development: marc.vilardebo@glamsw.com (2RTRV444HT)' electron-builder -m",
+    "start": "electron .",
+    "test": "\"echo \\\"Error: no test specified\\\" && exit 1\""
+  },
+  "build": {
+    "appId": "com.glamsw.bianchini.terminals",
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "hardenedRuntime": true,
+      "gatekeeperAssess": true,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.inherit.plist"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maarcv/electron.git"
+  },
+  "author": "Marc Vilardebó",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maarcv/electron/issues"
+  },
+  "homepage": "https://github.com/maarcv/electron#readme",
+  "devDependencies": {
+    "electron": "^38.1.2",
+    "electron-builder": "^26.0.12"
+  }
+}
