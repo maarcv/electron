@@ -1,7 +1,7 @@
 {
-  "name": "electron",
+  "name": "BianchiniTerminals",
   "version": "1.0.0",
-  "description": "Una app de web",
+  "description": "WebApp per controlar els terminals de Bianchini",
   "main": "main.js",
   "scripts": {
     "dist-mac": "CSC_NAME='Apple Development: marc.vilardebo@glamsw.com (2RTRV444HT)' electron-builder -m",
@@ -23,21 +23,21 @@
       "entitlementsInherit": "build/entitlements.mac.inherit.plist"
     },
     "win": {
-          "target": ["nsis"],
+          "target": ["nsis", "portable"],
           "icon": "build/icon.ico"
     },
     "nsis": {
-          "oneClick": true,
-          "perMachine": true,
-          "allowElevation": true,
-          "allowToChangeInstallationDirectory": false
+          "oneClick": false,
+          "perMachine": false,
+          "allowElevation": false,
+          "allowToChangeInstallationDirectory": true
         }
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/maarcv/electron.git"
   },
-  "author": "Marc Vilardebó",
+  "author": "GlamSoftware",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/maarcv/electron/issues"
