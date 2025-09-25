@@ -10,29 +10,57 @@ if (app.isPackaged) {
   dotenv.config() // .env a l’arrel del repo en desenvolupament
 }
 
-function createWindow () {
-    const terminalId = process.env.terminalId
-    const personId = process.env.personId
+function createSplash(apiRoute,  apiSyncroRoute, terminalId, url) {
+  const splash = new BrowserWindow({
+      fullscreen: true,
+      frame: false,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  })
+
+  const html = `
+    <html>
+      <body>
+        <h2>Carregant...</h2>
+        <p><b>API_ROUTE:</b> ${apiRoute}</p>
+        <p><b>API_SYNCRO_ROUTE:</b> ${apiSyncroRoute}</p>
+        <p><b>TERMINAL_ID:</b> ${terminalId}</p>
+        <p><b>TERMINALS_URL:</b> ${url}</p>
+      </body>
+    </html>
+  `
+
+  splash.loadURL(`data:text/html;charset=utf-8,${encodeURIComponent(html)}`)
+  return splash
+}
+
+function createMainWindow(url) {
   const win = new BrowserWindow({
-      fullscreen: true,         // Obre directament en pantalla completa
-      frame: false,             // Treu la barra de Windows (sense controls)
-      autoHideMenuBar: true,    // Oculta la barra de menú si n’hi hagués
+    fullscreen: true,
+    frame: false,
+    autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
   })
-    const url = `https://operations.abianchini.es:4043?person=${personId}&terminal=${terminalId}`
-    win.loadURL(url)
+  win.loadURL(url)
 }
 
 app.whenReady().then(() => {
-  createWindow()
+  const apiRoute = process.env.API_ROUTE
+  const apiSyncroRoute = process.env.API_SYNCRO_ROUTE
+  const terminalId = process.env.TERMINAL_ID
+  const url = `https://operations.abianchini.es:4043?API_ROUTE=${apiRoute}&API_SYNCRO_ROUTE=${apiSyncroRoute}&TERMINAL_ID=${terminalId}`
 
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow()
-    }
-  })
+  // Mostra splash
+  const splash = createSplash(apiRoute, apiSyncroRoute, terminalId, url)
+
+  // Espera 3 segons abans d’obrir finestra principal
+  setTimeout(() => {
+    splash.close()
+    createMainWindow(url)
+  }, 5000)
 })
 
 app.on('window-all-closed', () => {
