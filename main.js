@@ -1,6 +1,14 @@
 const { app, BrowserWindow } = require('electron/main')
 const path = require('node:path')
-require('dotenv').config() 
+const dotenv = require('dotenv')
+
+// Carrega .env segons si és dev o empaquetat
+if (app.isPackaged) {
+  // Quan està empaquetat, els recursos viuen a process.resourcesPath
+  dotenv.config({ path: path.join(process.resourcesPath, '.env') })
+} else {
+  dotenv.config() // .env a l’arrel del repo en desenvolupament
+}
 
 function createWindow () {
     const terminalId = process.env.terminalId

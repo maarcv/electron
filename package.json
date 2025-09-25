@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "dist-mac": "CSC_NAME='Apple Development: marc.vilardebo@glamsw.com (2RTRV444HT)' electron-builder -m",
+    "dist-win": "electron-builder -w nsis",
     "start": "electron .",
     "test": "\"echo \\\"Error: no test specified\\\" && exit 1\""
   },
@@ -20,7 +21,17 @@
       "gatekeeperAssess": true,
       "entitlements": "build/entitlements.mac.plist",
       "entitlementsInherit": "build/entitlements.mac.inherit.plist"
-    }
+    },
+    "win": {
+          "target": ["nsis"],
+          "icon": "build/icon.ico"
+    },
+    "nsis": {
+          "oneClick": true,
+          "perMachine": true,
+          "allowElevation": true,
+          "allowToChangeInstallationDirectory": false
+        }
   },
   "repository": {
     "type": "git",
@@ -32,9 +43,11 @@
     "url": "https://github.com/maarcv/electron/issues"
   },
   "homepage": "https://github.com/maarcv/electron#readme",
+  "dependencies": {
+      "dotenv": "^16.4.5"
+    },
   "devDependencies": {
     "electron": "^38.1.2",
-    "electron-builder": "^26.0.12",
-    "dotenv": "^16.4.5"
+    "electron-builder": "^26.0.12"
   }
 }
