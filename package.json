@@ -11,6 +11,13 @@
   },
   "build": {
     "appId": "com.glamsw.bianchini.terminals",
+    "extraResources": [
+          {
+            "from": ".env",
+            "to": ".env"
+          }
+        ]
+      },
     "mac": {
       "category": "public.app-category.productivity",
       "target": [
@@ -27,11 +34,10 @@
           "icon": "build/icon.ico"
     },
     "nsis": {
-          "oneClick": false,
-          "perMachine": false,
-          "allowElevation": false,
-          "allowToChangeInstallationDirectory": true
-        }
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": false,
+      "allowToChangeInstallationDirectory": true
   },
   "repository": {
     "type": "git",
